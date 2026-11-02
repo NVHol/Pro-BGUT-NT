@@ -217,36 +217,33 @@
                 width: 170px !important;
             }
 
-            /* Адаптация мини-игры 2 (Теплообменник) для мобильных */
+            /* Адаптация мини-игры 2 (Теплообменник) для мобильных телефонов */
             #game2-panel {
-                padding: 10px !important;
-                width: 90vw !important;
+                padding: 10px 15px !important;
+                width: auto !important;
+                max-width: 95vw !important;
             }
             #game2-panel h3 {
                 font-size: 0.85rem !important;
+                margin-bottom: 2px !important;
             }
             #game2-panel p {
                 font-size: 0.68rem !important;
-                margin-bottom: 4px !important;
+                margin-bottom: 6px !important;
             }
-            .plumber-grid-wrap {
-                grid-template-columns: repeat(4, 48px) !important;
-                grid-template-rows: repeat(4, 48px) !important;
+            .plumber-grid {
+                grid-template-columns: repeat(4, 42px) !important;
+                grid-template-rows: repeat(4, 42px) !important;
                 gap: 4px !important;
-                padding: 6px !important;
                 margin: 6px auto !important;
             }
-            .plumber-cell {
-                width: 48px !important;
-                height: 48px !important;
+            .pipe-tile {
+                width: 42px !important;
+                height: 42px !important;
             }
-            .overlay-icon {
-                font-size: 14px !important;
-            }
-            #plumber-message {
-                font-size: 0.75rem !important;
-                height: 16px !important;
-                margin-bottom: 4px !important;
+            .pipe-tile svg {
+                width: 30px !important;
+                height: 30px !important;
             }
 
             /* Адаптация мини-игры 3 (Пульт) для мобильных */
@@ -498,7 +495,7 @@
             cursor: pointer;
         }
 
-        /* Общие панели мини-игр */
+        /* Общие панели */
         .minigame-panel {
             position: absolute;
             top: 50%;
@@ -516,62 +513,47 @@
             backdrop-filter: blur(5px);
         }
 
-        /* --- СТИЛИ МИНИ-ИГРЫ 2: Теплообменник (Мастер Потока) --- */
-        .plumber-grid-wrap {
+        /* Стили для мини-игры 2: Теплообменник (Пламбер с физической проверкой связности и подсветкой) */
+        .plumber-grid {
             display: grid;
-            grid-template-columns: repeat(4, 70px);
-            grid-template-rows: repeat(4, 70px);
-            gap: 8px;
-            background: #1e293b;
-            padding: 12px;
-            border-radius: 10px;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
-            margin: 15px auto;
+            grid-template-columns: repeat(4, 55px);
+            grid-template-rows: repeat(4, 55px);
+            gap: 6px;
             justify-content: center;
+            margin: 15px 0;
         }
 
-        .plumber-cell {
-            width: 70px;
-            height: 70px;
-            background: #334155;
+        .pipe-tile {
+            background: #102027;
+            border: 2px solid #00acc1;
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            position: relative;
-            user-select: none;
-            overflow: hidden;
-            border: 1px solid rgba(0, 172, 193, 0.3);
-        }
-        .plumber-cell:hover {
-            background: #475569;
-            border-color: #38bdf8;
-        }
-        
-        .plumber-pipe {
-            position: absolute;
-            background: #64748b;
-            transition: background 0.3s;
-        }
-        .filled .plumber-pipe {
-            background: #38bdf8;
-            box-shadow: 0 0 12px #38bdf8;
+            transition: transform 0.2s, background 0.2s, border-color 0.2s;
         }
 
-        .type-straight .p1 { width: 12px; height: 100%; top: 0; left: 29px; }
-        .type-corner .p1 { width: 12px; height: 55%; top: 0; left: 29px; }
-        .type-corner .p2 { width: 55%; height: 12px; top: 29px; right: 0; }
-
-        .overlay-icon {
-            position: absolute;
-            font-size: 20px;
-            z-index: 3;
-            pointer-events: none;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        .pipe-tile:hover {
+            background: rgba(0, 172, 193, 0.2);
+            border-color: #26c6da;
         }
 
-        /* Стили для мини-игры 3 (Пульт) */
+        .pipe-tile.endpoint {
+            background: #0288d1;
+            border-color: #b2ebf2;
+            cursor: default;
+            font-size: 1.4rem;
+        }
+
+        /* Подсветка горячей водой по ходу соединения */
+        .pipe-tile.powered {
+            border-color: #ff7043 !important;
+            background: rgba(255, 112, 67, 0.25) !important;
+            box-shadow: 0 0 10px rgba(255, 112, 67, 0.5);
+        }
+
+        /* Стили для мини-игры 3 */
         .puzzle-clues {
             background: rgba(5, 11, 20, 0.6);
             border: 1px dashed #00acc1;
@@ -723,13 +705,14 @@
             </div>
         </div>
 
-        <!-- МИНИ-ИГРА 2: Теплообменник (Мастер Потока) -->
-        <div id="game2-panel" class="minigame-panel" style="width: 400px;">
-            <h3 style="color: #38bdf8; margin-bottom: 4px;">Теплообменник: Контур</h3>
-            <p style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 10px;">Поворачивайте трубы кликом, чтобы вода дошла от вентиля до крана!</p>
+        <!-- МИНИ-ИГРА 2: Теплообменник (Пламбер с физической проверкой связности и подсветкой) -->
+        <div id="game2-panel" class="minigame-panel" style="width: 340px;">
+            <h3 style="color: #00acc1; margin-bottom: 4px;">Теплообменник: Контур</h3>
+            <p style="font-size: 0.75rem; color: #b2ebf2; margin-bottom: 8px;">Соедините вентиль (верх) с краном (низ) горячей водой.</p>
             
-            <div class="plumber-grid-wrap" id="plumber-grid"></div>
-            <div id="plumber-message" style="margin-bottom: 10px; font-weight: bold; font-size: 0.9rem; height: 20px;"></div>
+            <div class="plumber-grid" id="plumber-board"></div>
+
+            <button class="btn" style="width: 100%; padding: 8px;" onclick="checkPlumberGame()">Проверить контур</button>
         </div>
 
         <!-- МИНИ-ИГРА 3: Аварийный пульт (Код 042) -->
@@ -923,138 +906,152 @@
             }
         }
 
-        // --- ЛОГИКА МИНИ-ИГРЫ 2 (Теплообменник / Мастер Потока) ---
-        const UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3;
-        const OPPOSITE = { [UP]: DOWN, [DOWN]: UP, [RIGHT]: LEFT, [LEFT]: RIGHT };
-        const DX = { [UP]: 0, [RIGHT]: 1, [DOWN]: 0, [LEFT]: -1 };
-        const DY = { [UP]: -1, [RIGHT]: 0, [DOWN]: 1, [LEFT]: 0 };
+        // --- ТОЧНАЯ ЛОГИКА МИНИ-ИГРЫ 2 (Пламбер с правильной матрицей связности) ---
+        let boardGrid = []; 
 
-        const PIPE_TYPES = {
-            'straight': { exits: [true, false, true, false], html: '<div class="plumber-pipe p1"></div>' },
-            'corner':   { exits: [true, true, false, false], html: '<div class="plumber-pipe p1"></div><div class="plumber-pipe p2"></div>' }
-        };
-
-        const gridRows = 4;
-        const gridCols = 4;
-        let gridData = [];
-        let startCoord = [0, 0];
-        let sinkCoord = [3, 3];
-
-        const winningGrid = [
-            [ { type: 'straight', rotation: 1 }, { type: 'straight', rotation: 1 }, { type: 'corner', rotation: 2 }, { type: 'corner', rotation: 3 } ],
-            [ { type: 'corner', rotation: 1 }, { type: 'straight', rotation: 1 }, { type: 'corner', rotation: 0 }, { type: 'straight', rotation: 0 } ],
-            [ { type: 'corner', rotation: 0 }, { type: 'straight', rotation: 1 }, { type: 'corner', rotation: 2 }, { type: 'straight', rotation: 0 } ],
-            [ { type: 'straight', rotation: 0 }, { type: 'corner', rotation: 0 }, { type: 'corner', rotation: 0 }, { type: 'straight', rotation: 1 } ]
+        const templateTypes = [
+            1, 1, 0, 1,
+            0, 1, 0, 1,
+            0, 1, 0, 1,
+            0, 1, 0, 1
         ];
 
-        function initPlumberGame() {
-            gridData = winningGrid.map(row => row.map(cell => {
-                let randomRotationShift = Math.floor(Math.random() * 3) + 1;
-                return {
-                    type: cell.type,
-                    rotation: (cell.rotation + randomRotationShift) % 4
-                };
-            }));
-            updatePlumberGame();
+        function getPipeExits(type, rot) {
+            let baseExits = (type === 0) ? [0, 2] : [0, 1]; 
+            return baseExits.map(side => (side + rot) % 4);
         }
 
-        function getRotatedExits(type, rotation) {
-            let base = [...PIPE_TYPES[type].exits];
-            for (let i = 0; i < rotation; i++) {
-                base.unshift(base.pop());
+        function getPipeSvg(type, rot, isPowered) {
+            let color = isPowered ? "#ff7043" : "#00acc1";
+            let svgContent = '';
+            if (type === 0) {
+                svgContent = `<line x1="4" y1="27" x2="50" y2="27" stroke="${color}" stroke-width="8" stroke-linecap="round"/>`;
+            } else {
+                svgContent = `<path d="M 27 4 L 27 27 L 50 27" fill="none" stroke="${color}" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>`;
             }
-            return base;
+            return `<svg width="40" height="40" viewBox="0 0 54 54" style="transform: rotate(${rot * 90}deg); transition: transform 0.2s;">${svgContent}</svg>`;
         }
 
-        function calculateWaterFlow() {
-            let filled = Array.from({ length: gridRows }, () => Array(gridCols).fill(false));
-            let queue = [startCoord];
-            filled[startCoord[1]][startCoord[0]] = true;
+        function initPlumberGame() {
+            boardGrid = [];
+            const board = document.getElementById('plumber-board');
+            board.innerHTML = '';
 
-            let head = 0;
-            while (head < queue.length) {
-                let [x, y] = queue[head++];
-                let current = gridData[y][x];
-                let currentExits = getRotatedExits(current.type, current.rotation);
+            for (let r = 0; r < 4; r++) {
+                for (let c = 0; c < 4; c++) {
+                    let idx = r * 4 + c;
+                    let type = templateTypes[idx];
+                    let rot = Math.floor(Math.random() * 4);
+                    
+                    if (idx === 0) rot = 0; 
+                    if (idx === 15) rot = 0; 
 
-                for (let dir = 0; dir < 4; dir++) {
-                    if (!currentExits[dir]) continue;
+                    boardGrid.push({ r, c, type, rot, powered: false });
 
-                    let nx = x + DX[dir];
-                    let ny = y + DY[dir];
+                    const tile = document.createElement('div');
+                    tile.className = 'pipe-tile';
+                    tile.dataset.index = idx;
 
-                    if (nx >= 0 && nx < gridCols && ny >= 0 && ny < gridRows && !filled[ny][nx]) {
-                        let neighbor = gridData[ny][nx];
-                        let neighborExits = getRotatedExits(neighbor.type, neighbor.rotation);
-                        
-                        if (neighborExits[OPPOSITE[dir]]) {
-                            filled[ny][nx] = true;
-                            queue.push([nx, ny]);
+                    if (idx === 0) {
+                        tile.classList.add('endpoint', 'powered');
+                        tile.innerHTML = '🚰';
+                        tile.title = 'Вход: Вентиль';
+                    } else if (idx === 15) {
+                        tile.classList.add('endpoint');
+                        tile.innerHTML = '🚰';
+                        tile.title = 'Выход: Кран';
+                    } else {
+                        tile.innerHTML = getPipeSvg(type, rot, false);
+                        tile.onclick = () => rotateTile(idx);
+                    }
+                    board.appendChild(tile);
+                }
+            }
+            updatePowerFlow();
+        }
+
+        function rotateTile(idx) {
+            if (idx === 0 || idx === 15) return;
+            boardGrid[idx].rot = (boardGrid[idx].rot + 1) % 4;
+            
+            updatePowerFlow();
+            
+            const tiles = document.getElementsByClassName('pipe-tile');
+            for (let i = 0; i < 16; i++) {
+                if (i !== 0 && i !== 15) {
+                    tiles[i].innerHTML = getPipeSvg(boardGrid[i].type, boardGrid[i].rot, boardGrid[i].powered);
+                    if (boardGrid[i].powered) {
+                        tiles[i].classList.add('powered');
+                    } else {
+                        tiles[i].classList.remove('powered');
+                    }
+                }
+            }
+        }
+
+        function updatePowerFlow() {
+            for (let cell of boardGrid) cell.powered = false;
+
+            let queue = [0]; 
+            boardGrid[0].powered = true;
+
+            const opposite = { 0: 2, 1: 3, 2: 0, 3: 1 };
+            const delta = { 0: [-1, 0], 1: [0, 1], 2: [1, 0], 3: [0, -1] };
+
+            while (queue.length > 0) {
+                let currIdx = queue.shift();
+                let curr = boardGrid[currIdx];
+                let currExits = getPipeExits(curr.type, curr.rot);
+
+                if (currIdx === 0) currExits = [1, 2]; 
+                if (currIdx === 15) currExits = [0, 3]; 
+
+                for (let exitDir of currExits) {
+                    let dr = delta[exitDir][0];
+                    let dc = delta[exitDir][1];
+                    let nr = curr.r + dr;
+                    let nc = curr.c + dc;
+
+                    if (nr >= 0 && nr < 4 && nc >= 0 && nc < 4) {
+                        let nIdx = nr * 4 + nc;
+                        let neighbor = boardGrid[nIdx];
+                        let neighborExits = (nIdx === 15) ? [0, 3] : getPipeExits(neighbor.type, neighbor.rot);
+
+                        if (neighborExits.includes(opposite[exitDir])) {
+                            if (!neighbor.powered) {
+                                neighbor.powered = true;
+                                queue.push(nIdx);
+                            }
                         }
                     }
                 }
             }
-            return filled;
         }
 
-        function handleCellClick(x, y) {
-            gridData[y][x].rotation = (gridData[y][x].rotation + 1) % 4;
-            updatePlumberGame();
-        }
+        function checkPlumberGame() {
+            updatePowerFlow();
+            const tiles = document.getElementsByClassName('pipe-tile');
 
-        function updatePlumberGame() {
-            const gridElement = document.getElementById('plumber-grid');
-            const messageElement = document.getElementById('plumber-message');
-            gridElement.innerHTML = '';
-
-            let waterFlow = calculateWaterFlow();
-            let isWin = waterFlow[sinkCoord[1]][sinkCoord[0]];
-
-            for (let y = 0; y < gridRows; y++) {
-                for (let x = 0; x < gridCols; x++) {
-                    let cellData = gridData[y][x];
-                    let cellDiv = document.createElement('div');
-                    cellDiv.className = 'plumber-cell';
-
-                    if (waterFlow[y][x]) cellDiv.classList.add('filled');
-
-                    let pipeContainer = document.createElement('div');
-                    pipeContainer.className = `pipe-container type-${cellData.type}`;
-                    pipeContainer.style.width = '100%';
-                    pipeContainer.style.height = '100%';
-                    pipeContainer.style.position = 'absolute';
-                    pipeContainer.style.transform = `rotate(${cellData.rotation * 90}deg)`;
-                    pipeContainer.innerHTML = PIPE_TYPES[cellData.type].html;
-                    cellDiv.appendChild(pipeContainer);
-
-                    if (x === startCoord[0] && y === startCoord[1]) {
-                        let icon = document.createElement('span');
-                        icon.className = 'overlay-icon';
-                        icon.innerHTML = '⚙️';
-                        cellDiv.appendChild(icon);
+            for (let i = 0; i < 16; i++) {
+                if (i !== 0 && i !== 15) {
+                    if (boardGrid[i].powered) {
+                        tiles[i].classList.add('powered');
+                    } else {
+                        tiles[i].classList.remove('powered');
                     }
-                    if (x === sinkCoord[0] && y === sinkCoord[1]) {
-                        let icon = document.createElement('span');
-                        icon.className = 'overlay-icon';
-                        icon.innerHTML = '🚰';
-                        cellDiv.appendChild(icon);
-                    }
-
-                    cellDiv.onclick = () => handleCellClick(x, y);
-                    gridElement.appendChild(cellDiv);
                 }
             }
 
-            if (isWin) {
-                messageElement.innerHTML = '<span style="color: #34d399;"> Победа! Контур соединен!</span>';
+            if (boardGrid[15].powered) {
                 progress.g2 = true;
+                tiles[15].classList.add('powered');
                 setTimeout(() => {
                     document.getElementById('game2-panel').style.display = 'none';
                     container.style.backgroundImage = "url('fon4.jpg')";
                     returnToMapAfterWin();
                 }, 1000);
             } else {
-                messageElement.innerHTML = '';
+                triggerErrorAnimation();
             }
         }
 
