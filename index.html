@@ -151,32 +151,165 @@
             display: none;
         }
 
-        /* Адаптация для мобильных в горизонтальном режиме */
+        /* Адаптация ТОЛЬКО для телефонов в горизонтальном режиме */
         @media (max-height: 500px) {
             body {
                 overflow-y: auto;
+                overflow-x: hidden;
                 height: auto;
                 min-height: 100vh;
             }
             #game-container {
-                height: 85vh;
+                height: 82vh;
                 min-height: 400px;
-                padding: 10px;
+                padding: 6px 12px;
             }
             .dialogue-box {
-                padding: 10px 15px;
-                margin-bottom: 5px;
+                padding: 6px 12px;
+                margin-bottom: 2px;
             }
             .dialogue-text {
-                font-size: 0.85rem;
-                line-height: 1.3;
-                min-height: 40px;
-                margin-bottom: 8px;
+                font-size: 0.8rem;
+                line-height: 1.25;
+                min-height: 28px;
+                margin-bottom: 3px;
+            }
+            .btn {
+                padding: 4px 12px;
+                font-size: 0.78rem;
             }
             #progress-panel {
-                top: 10px;
+                top: 8px;
                 padding: 4px 12px;
                 font-size: 0.8rem;
+            }
+
+            /* Адаптация мини-игры 1 (Компрессор) для мобильных */
+            .control-custom-panel {
+                padding: 8px 12px !important;
+                width: 94vw !important;
+                bottom: 4% !important;
+            }
+            .control-custom-panel p {
+                font-size: 0.7rem !important;
+                margin-bottom: 6px !important;
+            }
+            .compressor-grid-custom {
+                gap: 8px !important;
+                margin-bottom: 6px !important;
+            }
+            .slider-control-box {
+                padding: 4px 8px !important;
+                gap: 8px !important;
+            }
+            .gauge-small {
+                width: 35px !important;
+                height: 35px !important;
+            }
+            .slider-info label {
+                font-size: 0.65rem !important;
+                margin-bottom: 2px !important;
+            }
+            .dashboard-custom-panel {
+                top: 35% !important;
+                padding: 4px 8px !important;
+                font-size: 0.65rem !important;
+                width: 170px !important;
+            }
+
+            /* Адаптация мини-игры 2 (Теплообменник) для мобильных телефонов */
+            #game2-panel {
+                padding: 8px 12px !important;
+                width: auto !important;
+                max-width: 95vw !important;
+            }
+            #game2-panel h3 {
+                font-size: 0.85rem !important;
+                margin-bottom: 2px !important;
+            }
+            #game2-panel p {
+                font-size: 0.68rem !important;
+                margin-bottom: 4px !important;
+            }
+            .grid {
+                grid-template-columns: repeat(4, 52px) !important;
+                grid-template-rows: repeat(4, 52px) !important;
+                gap: 6px !important;
+                padding: 10px !important;
+                margin: 6px auto !important;
+            }
+            .cell {
+                width: 52px !important;
+                height: 52px !important;
+            }
+            .overlay-icon {
+                font-size: 16px !important;
+            }
+            .message {
+                font-size: 0.8rem !important;
+                height: 20px !important;
+                margin-top: 5px !important;
+                margin-bottom: 5px !important;
+            }
+
+            /* Адаптация мини-игры 3 (Пульт) для мобильных */
+            #game3-panel {
+                padding: 10px !important;
+                width: 92vw !important;
+            }
+            #game3-panel h3 {
+                font-size: 0.85rem !important;
+                margin-bottom: 4px !important;
+            }
+            #game3-panel > p {
+                font-size: 0.68rem !important;
+                margin-bottom: 6px !important;
+            }
+            .puzzle-clues {
+                padding: 5px 8px !important;
+                margin-bottom: 8px !important;
+                font-size: 0.65rem !important;
+                gap: 2px !important;
+            }
+            .code-display {
+                gap: 8px !important;
+                margin-bottom: 8px !important;
+            }
+            .code-slot {
+                width: 35px !important;
+                height: 42px !important;
+                font-size: 1.2rem !important;
+            }
+            .keypad {
+                grid-template-columns: repeat(10, 1fr) !important;
+                gap: 3px !important;
+                margin-bottom: 8px !important;
+            }
+            .key-btn {
+                height: 32px !important;
+                font-size: 0.9rem !important;
+                border-radius: 4px !important;
+            }
+            .keypad-actions {
+                gap: 6px !important;
+            }
+            .action-btn {
+                padding: 4px 12px !important;
+                font-size: 0.75rem !important;
+            }
+
+            /* Финальная панель победы для мобильных */
+            #victory-panel {
+                padding: 15px !important;
+                width: 92vw !important;
+            }
+            #victory-panel h2 {
+                font-size: 0.95rem !important;
+                margin-bottom: 6px !important;
+            }
+            #victory-panel p {
+                font-size: 0.75rem !important;
+                margin-bottom: 10px !important;
             }
         }
 
@@ -368,7 +501,7 @@
             cursor: pointer;
         }
 
-        /* Общие панели мини-игр */
+        /* Общие панели */
         .minigame-panel {
             position: absolute;
             top: 50%;
@@ -386,8 +519,8 @@
             backdrop-filter: blur(5px);
         }
 
-        /* --- СТИЛИ МИНИ-ИГРЫ 2: Теплообменник (Мастер Потока) --- */
-        .plumber-grid-wrap {
+        /* --- СТИЛИ МИНИ-ИГРЫ 2: Теплообменник (Мастер Потока из 1.txt) --- */
+        .grid {
             display: grid;
             grid-template-columns: repeat(4, 70px);
             grid-template-rows: repeat(4, 70px);
@@ -399,8 +532,7 @@
             margin: 15px auto;
             justify-content: center;
         }
-
-        .plumber-cell {
+        .cell {
             width: 70px;
             height: 70px;
             background: #334155;
@@ -414,17 +546,17 @@
             overflow: hidden;
             border: 1px solid rgba(0, 172, 193, 0.3);
         }
-        .plumber-cell:hover {
+        .cell:hover {
             background: #475569;
             border-color: #38bdf8;
         }
         
-        .plumber-pipe {
+        .pipe {
             position: absolute;
             background: #64748b;
             transition: background 0.3s;
         }
-        .filled .plumber-pipe {
+        .filled .pipe {
             background: #38bdf8;
             box-shadow: 0 0 12px #38bdf8;
         }
@@ -435,13 +567,23 @@
 
         .overlay-icon {
             position: absolute;
-            font-size: 20px;
+            font-size: 22px;
             z-index: 3;
             pointer-events: none;
             text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
-        /* Стили для мини-игры 3 (Пульт) */
+        .message {
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            height: 25px;
+        }
+        .win-text {
+            color: #34d399;
+        }
+
+        /* Стили для мини-игры 3 */
         .puzzle-clues {
             background: rgba(5, 11, 20, 0.6);
             border: 1px dashed #00acc1;
@@ -594,12 +736,12 @@
         </div>
 
         <!-- МИНИ-ИГРА 2: Теплообменник (Мастер Потока) -->
-        <div id="game2-panel" class="minigame-panel" style="width: 400px;">
+        <div id="game2-panel" class="minigame-panel" style="width: 420px;">
             <h3 style="color: #38bdf8; margin-bottom: 4px;">Теплообменник: Контур</h3>
-            <p style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 10px;">Поворачивайте трубы кликом, чтобы вода дошла от вентиля до крана!</p>
+            <p style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 5px;">Поворачивайте трубы кликом, чтобы вода дошла от вентиля до крана!</p>
             
-            <div class="plumber-grid-wrap" id="plumber-grid"></div>
-            <div id="plumber-message" style="margin-bottom: 10px; font-weight: bold; font-size: 0.9rem; height: 20px;"></div>
+            <div class="grid" id="grid"></div>
+            <div class="message" id="message"></div>
         </div>
 
         <!-- МИНИ-ИГРА 3: Аварийный пульт (Код 042) -->
@@ -793,15 +935,15 @@
             }
         }
 
-        // --- ЛОГИКА МИНИ-ИГРЫ 2 (Теплообменник / Мастер Потока) ---
+        // --- ЛОГИКА МИНИ-ИГРЫ 2 (Теплообменник / Мастер Потока из 1.txt) ---
         const UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3;
         const OPPOSITE = { [UP]: DOWN, [DOWN]: UP, [RIGHT]: LEFT, [LEFT]: RIGHT };
         const DX = { [UP]: 0, [RIGHT]: 1, [DOWN]: 0, [LEFT]: -1 };
         const DY = { [UP]: -1, [RIGHT]: 0, [DOWN]: 1, [LEFT]: 0 };
 
         const PIPE_TYPES = {
-            'straight': { exits: [true, false, true, false], html: '<div class="plumber-pipe p1"></div>' },
-            'corner':   { exits: [true, true, false, false], html: '<div class="plumber-pipe p1"></div><div class="plumber-pipe p2"></div>' }
+            'straight': { exits: [true, false, true, false], html: '<div class="pipe p1"></div>' },
+            'corner':   { exits: [true, true, false, false], html: '<div class="pipe p1"></div><div class="pipe p2"></div>' }
         };
 
         const gridRows = 4;
@@ -873,8 +1015,8 @@
         }
 
         function updatePlumberGame() {
-            const gridElement = document.getElementById('plumber-grid');
-            const messageElement = document.getElementById('plumber-message');
+            const gridElement = document.getElementById('grid');
+            const messageElement = document.getElementById('message');
             gridElement.innerHTML = '';
 
             let waterFlow = calculateWaterFlow();
@@ -884,7 +1026,7 @@
                 for (let x = 0; x < gridCols; x++) {
                     let cellData = gridData[y][x];
                     let cellDiv = document.createElement('div');
-                    cellDiv.className = 'plumber-cell';
+                    cellDiv.className = 'cell';
 
                     if (waterFlow[y][x]) cellDiv.classList.add('filled');
 
@@ -916,7 +1058,7 @@
             }
 
             if (isWin) {
-                messageElement.innerHTML = '<span style="color: #34d399;">🎉 Победа! Контур соединен!</span>';
+                messageElement.innerHTML = '<span class="win-text">🎉 Победа! Контур соединен!</span>';
                 progress.g2 = true;
                 setTimeout(() => {
                     document.getElementById('game2-panel').style.display = 'none';
