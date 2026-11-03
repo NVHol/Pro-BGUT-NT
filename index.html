@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pro-БГУТ: Студент на час - НТ </title>
+    <title>Арктический квест: Авария в крио-хранилище</title>
     
     <!-- Предзагрузка фонов для мгновенного переключения -->
     <link rel="preload" href="fon.jpg" as="image">
@@ -139,6 +139,16 @@
             display: none;
             box-shadow: 0 0 15px rgba(0, 172, 193, 0.3);
             backdrop-filter: blur(4px);
+        }
+
+        /* Кнопка перезапуска станции в конце */
+        #restart-container {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 25;
+            display: none;
         }
 
         /* Адаптация ТОЛЬКО для телефонов в горизонтальном режиме */
@@ -737,6 +747,11 @@
             <div id="spot-3" class="hotspot" style="top: 17%; left: 67.5%; width: 9%; height: 26%;" onclick="startMiniGame(3)">Пульт</div>
         </div>
 
+        <!-- Кнопка перезапуска станции в конце -->
+        <div id="restart-container">
+            <button class="btn" style="background: linear-gradient(135deg, #2e7d32, #4caf50); font-size: 1.1rem; padding: 15px 35px; box-shadow: 0 0 20px rgba(76,175,80,0.6);" onclick="triggerVictory()">Перезапустить станцию</button>
+        </div>
+
         <!-- МИНИ-ИГРА 1: Компрессор -->
         <div id="game1-container" class="compressor-container">
             <div class="dashboard-custom-panel">
@@ -820,15 +835,15 @@
             </div>
         </div>
 
-        <!-- Финальный экран победы с компетенциями специальности -->
+        <!-- Финальный экран победы с обновленными описаниями компетенций -->
         <div id="victory-panel" class="victory-panel">
             <h2 style="color: #00acc1; margin-bottom: 8px; text-align: center;">МИССИЯ УСПЕШНО ВЫПОЛНЕНА!</h2>
             <p style="margin-bottom: 12px; color: #b2ebf2; text-align: center; font-size: 0.95rem;">Все узлы крио-хранилища стабилизированы. Температурный режим в норме. Станция спасена!</p>
             <h3 style="color: #80deea; font-size: 1rem; margin-bottom: 6px;">Чему научило каждое задание квеста (специальность «Оборудование и технологии вакуумной, компрессорной и низкотемпературной техники»):</h3>
             <ul class="competence-list">
-                <li><strong>Настройка компрессора:</strong> Развивает понимание термодинамических циклов, компрессорного оборудования и расчета рабочих параметров давления.</li>
-                <li><strong>Запуск теплообменника:</strong> Формирует навыки гидравлического расчета, проектирования теплообменных контуров и управления потоками хладагентов.</li>
-                <li><strong>Аварийный пульт:</strong> Развивает логическое мышление, инженерную интуицию и оперативность принятия решений в нештатных ситуациях.</li>
+                <li><strong>Настройка компрессора:</strong> Учит уверенно переводить единицы давления (килопаскали, бары, миллиметры ртутного столба) и настраивать рабочие параметры холодильных машин.</li>
+                <li><strong>Запуск теплообменника:</strong> Развивает логику и пространственное мышление через гидравлическое моделирование потоков хладагента в замкнутых контурах.</li>
+                <li><strong>Аварийный пульт:</strong> Развивает инженерную интуицию, аналитическое мышление и оперативность принятия решений в нештатных ситуациях.</li>
             </ul>
             <p style="color: #00ffcc; font-size: 0.8rem; margin-top: 8px; margin-bottom: 4px; text-align: center;">📱 Поверните телефон вертикально для комфортного просмотра Шага 3</p>
             <a href="https://nvhol.github.io/Pro-BGUT/testdrive.html" class="btn" style="width: 100%; margin-top: 4px;">ПЕРЕЙТИ НА ШАГ 3</a>
@@ -933,11 +948,17 @@
 
             if (progress.g1 && progress.g2 && progress.g3) {
                 document.getElementById('lab-map').style.display = 'none';
-                container.style.backgroundImage = "url('fon9.jpg')";
-                setTimeout(() => {
-                    document.getElementById('victory-panel').style.display = 'block';
-                }, 1000);
+                document.getElementById('progress-panel').style.display = 'none';
+                document.getElementById('restart-container').style.display = 'block';
             }
+        }
+
+        function triggerVictory() {
+            document.getElementById('restart-container').style.display = 'none';
+            container.style.backgroundImage = "url('fon9.jpg')";
+            setTimeout(() => {
+                document.getElementById('victory-panel').style.display = 'block';
+            }, 2000);
         }
 
         function startMiniGame(num) {
@@ -1168,10 +1189,6 @@
             setTimeout(() => {
                 container.style.backgroundImage = "url('fon.jpg')";
                 updateProgressDisplay();
-                if (!(progress.g1 && progress.g2 && progress.g3)) {
-                    document.getElementById('lab-map').style.display = 'block';
-                    document.getElementById('progress-panel').style.display = 'block';
-                }
             }, 1500);
         }
 
