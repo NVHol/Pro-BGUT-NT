@@ -151,7 +151,7 @@
             display: none;
         }
 
-        /* Адаптация ТОЛЬКО для телефонов в горизонтальном режиме */
+        /* Адаптация для мобильных в горизонтальном режиме */
         @media (max-height: 500px) {
             body {
                 overflow-y: auto;
@@ -232,24 +232,24 @@
                 margin-bottom: 4px !important;
             }
             .grid {
-                grid-template-columns: repeat(4, 52px) !important;
-                grid-template-rows: repeat(4, 52px) !important;
+                grid-template-columns: repeat(4, 11vh) !important;
+                grid-template-rows: repeat(4, 11vh) !important;
                 gap: 6px !important;
-                padding: 10px !important;
+                padding: 8px !important;
                 margin: 6px auto !important;
             }
             .cell {
-                width: 52px !important;
-                height: 52px !important;
+                width: 11vh !important;
+                height: 11vh !important;
             }
             .overlay-icon {
-                font-size: 16px !important;
+                font-size: 3.5vh !important;
             }
             .message {
-                font-size: 0.8rem !important;
-                height: 20px !important;
-                margin-top: 5px !important;
-                margin-bottom: 5px !important;
+                font-size: 0.75rem !important;
+                height: 16px !important;
+                margin-top: 4px !important;
+                margin-bottom: 2px !important;
             }
 
             /* Адаптация мини-игры 3 (Пульт) для мобильных */
@@ -935,7 +935,7 @@
             }
         }
 
-        // --- ЛОГИКА МИНИ-ИГРЫ 2 (Теплообменник / Мастер Потока из 1.txt) ---
+        // --- ТОЧНАЯ ОРИГИНАЛЬНАЯ ЛОГИКА МИНИ-ИГРЫ 2 (Мастер Потока) ---
         const UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3;
         const OPPOSITE = { [UP]: DOWN, [DOWN]: UP, [RIGHT]: LEFT, [LEFT]: RIGHT };
         const DX = { [UP]: 0, [RIGHT]: 1, [DOWN]: 0, [LEFT]: -1 };
